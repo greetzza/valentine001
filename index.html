@@ -207,38 +207,38 @@
 
         /* Section Foto */
         .photo-section {
-            margin: 50px 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+    margin: 50px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
-        .photo-container {
-            width: 100%;
-            max-width: 300px;
-            position: relative;
-        }
+.photo-container {
+    width: 100%;
+    max-width: 500px; /* Lebarkan max-width untuk landscape */
+    position: relative;
+}
 
-        .photo-frame {
-            width: 100%;
-            padding-bottom: 177.78%; /* 9:16 aspect ratio (9/16 = 0.5625, 1/0.5625 = 1.7778) */
-            position: relative;
-            border: 8px solid #e8b4b8;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
-            background-color: #f5f0eb;
-        }
+.photo-frame {
+    width: 100%;
+    padding-bottom: 56.25%; /* 16:9 aspect ratio untuk landscape (9/16 = 0.5625) */
+    position: relative;
+    border: 8px solid #e8b4b8;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+    background-color: #f5f0eb;
+}
 
-        .photo-frame img {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
+.photo-frame img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
 
         .photo-frame:hover img {
             transform: scale(1.05);
@@ -626,3 +626,4 @@
 </body>
 
 </html>
+
