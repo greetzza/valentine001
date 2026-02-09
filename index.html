@@ -140,7 +140,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: url('gambar/bg1.jpeg');
+            background-image: url('bgv.jpeg');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -205,40 +205,43 @@
             margin-top: 5px;
         }
 
-        /* Section Foto */
+        /* Section Foto - PERBAIKAN UTAMA */
         .photo-section {
-    margin: 50px 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
+            margin: 50px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
 
-.photo-container {
-    width: 100%;
-    max-width: 500px; /* Lebarkan max-width untuk landscape */
-    position: relative;
-}
+        .photo-container {
+            width: 100%;
+            position: relative;
+        }
 
-.photo-frame {
-    width: 100%;
-    padding-bottom: 56.25%; /* 16:9 aspect ratio untuk landscape (9/16 = 0.5625) */
-    position: relative;
-    border: 8px solid #e8b4b8;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
-    background-color: #f5f0eb;
-}
+        .photo-frame {
+            width: 100%;
+            height: auto;
+            min-height: 400px;
+            position: relative;
+            border: 8px solid #e8b4b8;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            background-color: #f5f0eb;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
 
-.photo-frame img {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.5s ease;
-}
+        .photo-frame img {
+            width: 100%;
+            height: auto;
+            min-height: 400px;
+            object-fit: cover;
+            object-position: center;
+            transition: transform 0.5s ease;
+            display: block;
+        }
 
         .photo-frame:hover img {
             transform: scale(1.05);
@@ -358,8 +361,18 @@
                 font-size: 1.18rem;
             }
             
-            .photo-container {
-                max-width: 250px;
+            /* Perbaikan untuk mobile */
+            .photo-frame {
+                min-height: 300px;
+                border-width: 6px;
+            }
+            
+            .photo-frame img {
+                min-height: 300px;
+            }
+            
+            .photo-section {
+                margin: 40px 0;
             }
         }
 
@@ -404,12 +417,18 @@
                 line-height: 1.8;
             }
             
-            .photo-container {
-                max-width: 200px;
+            /* Perbaikan untuk mobile kecil */
+            .photo-frame {
+                min-height: 250px;
+                border-width: 5px;
             }
             
-            .photo-frame {
-                border-width: 6px;
+            .photo-frame img {
+                min-height: 250px;
+            }
+            
+            .photo-section {
+                margin: 30px 0;
             }
             
             .close-letter {
@@ -424,6 +443,17 @@
                 right: 20px;
                 width: 55px;
                 height: 55px;
+            }
+        }
+
+        /* Untuk layar besar */
+        @media (min-width: 1200px) {
+            .photo-frame {
+                min-height: 450px;
+            }
+            
+            .photo-frame img {
+                min-height: 450px;
             }
         }
     </style>
@@ -604,11 +634,46 @@
         backgroundMusic.volume = 0.6;
         backgroundMusic.pause();
         
-        // Contoh: untuk mengganti nama penerima, panggil fungsi ini
-        // setRecipientName("Nama Orang Tersayang");
+        // Optimasi foto saat halaman dimuat
+        window.addEventListener('load', function() {
+            const photoImg = document.querySelector('.photo-frame img');
+            // Pastikan foto memiliki ukuran yang optimal
+            if (photoImg.complete) {
+                adjustPhotoSize();
+            } else {
+                photoImg.onload = adjustPhotoSize;
+            }
+        });
         
-        // Contoh: untuk mengganti foto, panggil fungsi ini
-        // setPhoto("URL_FOTO_ANDA", "Caption foto");
+        // Fungsi untuk menyesuaikan ukuran foto
+        function adjustPhotoSize() {
+            const photoFrame = document.querySelector('.photo-frame');
+            const photoImg = document.querySelector('.photo-frame img');
+            
+            // Atur ukuran minimum berdasarkan lebar layar
+            const screenWidth = window.innerWidth;
+            
+            if (screenWidth < 480) {
+                photoFrame.style.minHeight = '250px';
+                photoImg.style.minHeight = '250px';
+            } else if (screenWidth < 768) {
+                photoFrame.style.minHeight = '300px';
+                photoImg.style.minHeight = '300px';
+            } else if (screenWidth > 1200) {
+                photoFrame.style.minHeight = '450px';
+                photoImg.style.minHeight = '450px';
+            } else {
+                photoFrame.style.minHeight = '400px';
+                photoImg.style.minHeight = '400px';
+            }
+            
+            // Pastikan foto mengisi seluruh frame
+            photoImg.style.width = '100%';
+            photoImg.style.height = 'auto';
+        }
+        
+        // Event listener untuk resize window
+        window.addEventListener('resize', adjustPhotoSize);
         
         // Efek hover tambahan untuk kartu
         valentineCard.addEventListener('mouseenter', function() {
@@ -624,6 +689,4 @@
         });
     </script>
 </body>
-
 </html>
-
